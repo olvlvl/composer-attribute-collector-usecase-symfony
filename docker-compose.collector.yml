@@ -1,0 +1,20 @@
+---
+version: "3.2"
+services:
+  app:
+    build: .
+    depends_on:
+    - redis
+    environment:
+      PHP_IDE_CONFIG: 'serverName=collector-symfony'
+    volumes:
+    - .:/app:delegated
+    working_dir: /app
+  redis:
+    image: redis:6.2-alpine
+    restart: always
+    volumes:
+    - cache:/data
+volumes:
+  cache:
+    driver: local
